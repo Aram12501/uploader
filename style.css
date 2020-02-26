@@ -1,0 +1,32 @@
+#loadPlace {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 400px; 
+    height: 300px;
+    margin: auto;
+    border: 1px dotted black;
+}
+#uploadProgress {
+    width: 150px; 
+    height: 20px;
+    margin: 0px 590px auto;      
+}
+#uploadInput {
+    display: none;
+}
+label[for="uploadInput"] {
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+    background-color: darkmagenta;
+}
+label[for="uploadInput"]:hover {
+    background-color: #b800b8;
+}
+#uploadProgress {
+    visibility: hidden;
+}
+#uploadProgress.visible {
+    visibility: visible;
+}
