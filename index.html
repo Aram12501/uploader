@@ -5,12 +5,13 @@
     <link rel="stylesheet" href="style.css">
     <title>UPLOADER</title>
 </head>
-<body> 
-    <div id="loadPlace">
-        <input type="file" id="uploadInput">
-        <label for="uploadInput">Choose File</label>
+<body id="body">    
+    <div id="droparea" type="file" ondragover="event.preventDefault();" ondrop=" event.preventDefault();">
+        <form id="dropzoneInput">
+            <input type="file" id="uploadInput" multiple>
+            <label for="uploadInput" id="uploadBtn">Choose File</label>
+        </form>
     </div>
-    <progress id="uploadProgress"></progress>  
     <script src="index.js"></script>
 </body>
 </html>

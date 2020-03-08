@@ -1,29 +1,63 @@
-function upLoader() {
-    var uploadInput = document.getElementById("uploadInput")
-    var uploadPlace = document.getElementById("loadPlace")
-    var uploadProgress = document.getElementById("uploadProgress")
+function upLoader(files) {
+    var num = 0;
+    // var fileBox = []
 
-    uploadInput.addEventListener('change', function () {
-        var asd = new XMLHttpRequest(),
-         fd = new FormData();
-
-        fd.append('file',uploadInput.files[0]);
-
-        asd.upload.onloadstart = function (e) {
-            uploadProgress
-            uploadPlace.append(uploadProgress)
+    function uploadFile() {
+        if (!files[num]) {
+            return
+        }
+        if (files[num].type !== "image/png") {
+            num++;
+            alert("does not match")
+            return uploadFile(files[num]);
+        }
+        // else {
+        // }
+        var uploadProgress = document.createElement("progress");
+        var aboutNameBox = document.createElement("p");
+        var aboutBox = document.createElement("p");
+        var body = document.getElementById("body")
+        var div = document.createElement('div')
+        div.classList.add("div");
+        uploadProgress.classList.add("uploadProgress");
+        body.appendChild(div);
+        div.appendChild(uploadProgress);
+        var resp = new XMLHttpRequest(),
+        fd = new FormData();
+        fd.append('file', files);
+        var asd = files[num].name;
+        var fileName = document.createTextNode(asd);
+        div.appendChild(aboutBox);
+        div.appendChild(aboutNameBox);
+        aboutNameBox.appendChild(fileName);
+        var uploadBtn = document.getElementById("uploadBtn")
+        resp.upload.onloadstart = function (e) {
             uploadProgress.value = 0;
             uploadProgress.max = e.total;
+            var percent = Math.round(((uploadProgress.value / uploadProgress.max) * 100)) + "%";
+            var percentSize = document.createTextNode(percent);
+            aboutBox.appendChild(percentSize);
         }
-        asd.upload.onprogress = function (e) {
+        resp.upload.onprogress = function (e) {
             uploadProgress.value = e.loaded;
             uploadProgress.max = e.total;
+            aboutBox.innerHTML = Math.round(((uploadProgress.value / uploadProgress.max) * 100)) + "%";;
         }
-        asd.upload.onloadend = function (e) {
-            console.log("great")
+        resp.upload.onloadend = function () {
+            num++
+            if (num < files.length) {
+                uploadFile(files[num])
+            }
         }
-        asd.open('POST', 'http://ip.aparg.com:7007/uploader',true);
-        asd.send(fd)    
-    })
-}       
-upLoader()
+        resp.open('POST', 'http://ip.aparg.com:7007/uploader', true);
+        resp.send(fd)
+    }
+    uploadFile(files[num])
+}
+ondrop = function (e) {
+    upLoader(e.dataTransfer.files)
+}
+uploadInput.addEventListener('change', function () {
+    var uploadInput = document.getElementById("uploadInput")
+    upLoader(uploadInput.files)
+})

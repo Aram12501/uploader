@@ -1,4 +1,4 @@
-#loadPlace {
+#droparea {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,7 +16,7 @@
     display: none;
 }
 label[for="uploadInput"] {
-    padding: 10px;
+    padding: 15px;
     color: white;
     border-radius: 5px;
     background-color: darkmagenta;
@@ -24,9 +24,11 @@ label[for="uploadInput"] {
 label[for="uploadInput"]:hover {
     background-color: #b800b8;
 }
-#uploadProgress {
-    visibility: hidden;
+.uploadProgress {
+    /* visibility: hidden; */
+    display: block;
+    margin-left: 40%;
 }
-#uploadProgress.visible {
-    visibility: visible;
-}
+/* #uploadProgress.visible { */
+    /* visibility: visible; */
+/* } */
